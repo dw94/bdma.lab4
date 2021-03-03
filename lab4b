@@ -4,12 +4,13 @@ import re
 
 class MRTRipsinStation(MRJob):
 
-  def mapper1(self, _, line):
-    yield (line[6],1)
-    yield (line[10],1)
+  def mapper1(_, line):
+    row = line.split(',')
+    yield (row[6],1)
+    yield (row[10],1)
 
-  def reducer1(self, key, values):
-    yield (key, sum(counts))
+  def reducer1(station, counts):
+    yield (station, sum(counts))
     
 if __name__ == '__main__':
 MRTRipsinStation.run()
